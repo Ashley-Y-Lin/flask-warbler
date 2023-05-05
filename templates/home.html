@@ -55,6 +55,14 @@
             <div class="message-area">
               <a href="/users/{{ msg.user.id }}">@{{ msg.user.username }}</a>
               <span class="text-muted">{{ msg.timestamp.strftime('%d %B %Y') }}</span>
+              <form method="POST" action="/messages/{{ msg.id }}/toggle_like">
+                {{ g.csrf_form.hidden_tag() }}
+                <button type="submit" class="like-button">
+                  <i class="bi {{
+                    'bi-star-fill' if msg in g.user.liked_messages else 'bi-star'
+                  }}"></i>
+                </button>
+              </form>
               <p>{{ msg.text }}</p>
             </div>
           </li>
